@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api
+  labels:
+    role: api
+spec:
+  containers:
+    - name: api
+      image: cloudacademydevops/api:v1
+      ports:
+        - containerPort: 8080
+          name: api
+      env:
+      - name: MONGO_CONN_STR
+        value: mongodb://mongo.voteapp.svc.cluster.local:27017/langdb
