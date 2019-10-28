@@ -1,0 +1,32 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: s2i-build
+  namespace: blah
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'frontend:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: blah
+        name: 'builder:latest'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/jeremycook123/os-voteapp-frontend-react'
+      ref: master
+  triggers:
+    - type: GitHub
+      github:
+        secret: Geglxxxxxthk0u
+  runPolicy: Serial
